@@ -1,0 +1,2131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SolveIt — AI for Everyone, Everywhere</title>
+<meta name="description" content="SolveIt brings 8 powerful AI tools into one simple interface. No technical knowledge needed. Works in 6 languages. Start free today!">
+<meta name="keywords" content="AI tools, artificial intelligence, AI assistant, multilingual AI, productivity tools, SolveIt">
+<meta property="og:title" content="SolveIt — AI for Everyone, Everywhere">
+<meta property="og:description" content="8 powerful AI tools in one platform. No technical knowledge needed. Works in 6 languages. Start free!">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://solveit.app">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SolveIt — AI for Everyone, Everywhere">
+<meta name="twitter:description" content="8 powerful AI tools in one simple platform. Start free today!">
+<link rel="canonical" href="https://solveit.app">
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080810;
+  --bg2: #0e0e1a;
+  --gold: #f5c842;
+  --red: #e63946;
+  --blue: #3a86ff;
+  --purple: #7b2fff;
+  --white: #f0eeff;
+  --muted: #6b6b8a;
+  --grad: linear-gradient(135deg, #3a86ff, #7b2fff, #e63946);
+  --grad2: linear-gradient(135deg, #f5c842, #e63946);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Custom cursor */
+.cursor {
+  width: 12px; height: 12px;
+  background: var(--gold);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s;
+  mix-blend-mode: difference;
+}
+.cursor-trail {
+  width: 32px; height: 32px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  transition: all 0.15s ease;
+  opacity: 0.4;
+}
+
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.4;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 60px;
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 3px;
+  background: var(--grad2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--white); }
+
+.nav-cta {
+  background: var(--gold);
+  color: #000;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 4px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: none;
+  transition: all 0.3s;
+  letter-spacing: 0.5px;
+}
+.nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,200,66,0.3); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 120px 60px 80px;
+}
+
+/* Animated background orbs */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: float 8s ease-in-out infinite;
+}
+.orb-1 { width: 500px; height: 500px; background: rgba(58,134,255,0.12); top: -100px; right: -100px; animation-delay: 0s; }
+.orb-2 { width: 400px; height: 400px; background: rgba(123,47,255,0.1); bottom: -100px; left: -100px; animation-delay: 2s; }
+.orb-3 { width: 300px; height: 300px; background: rgba(245,200,66,0.08); top: 50%; left: 50%; animation-delay: 4s; }
+.orb-4 { width: 250px; height: 250px; background: rgba(230,57,70,0.1); bottom: 100px; right: 200px; animation-delay: 1s; }
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -30px) scale(1.05); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+/* Grid lines */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(58,134,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(58,134,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+.hero-content {
+  max-width: 900px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(245,200,66,0.1);
+  border: 1px solid rgba(245,200,66,0.3);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 32px;
+  animation: fadeUp 0.8s ease both;
+}
+
+.hero-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(80px, 12vw, 140px);
+  line-height: 0.9;
+  letter-spacing: 4px;
+  margin-bottom: 12px;
+  animation: fadeUp 0.8s 0.1s ease both;
+}
+
+.hero-title .grad {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-title .outline {
+  -webkit-text-stroke: 2px rgba(255,255,255,0.15);
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-sub {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(20px, 3vw, 32px);
+  letter-spacing: 8px;
+  color: var(--muted);
+  margin-bottom: 32px;
+  animation: fadeUp 0.8s 0.2s ease both;
+}
+
+.hero-desc {
+  font-size: 18px;
+  font-weight: 300;
+  color: rgba(240,238,255,0.6);
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto 48px;
+  animation: fadeUp 0.8s 0.3s ease both;
+}
+
+.hero-desc span { color: var(--gold); font-weight: 500; }
+
+.hero-btns {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeUp 0.8s 0.4s ease both;
+}
+
+.btn-primary {
+  background: var(--grad2);
+  color: #000;
+  border: none;
+  padding: 16px 40px;
+  border-radius: 4px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: none;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.2);
+  transform: translateX(-100%);
+  transition: transform 0.3s;
+}
+.btn-primary:hover::after { transform: translateX(0); }
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(245,200,66,0.3); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 16px 40px;
+  border-radius: 4px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  cursor: none;
+  transition: all 0.3s;
+}
+.btn-secondary:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-3px); }
+
+/* Language badges */
+.lang-strip {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 64px;
+  animation: fadeUp 0.8s 0.5s ease both;
+}
+
+.lang-badge {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 4px;
+  padding: 6px 14px;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: fadeUp 1s 1s ease both;
+  z-index: 2;
+}
+.scroll-line {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--gold));
+  animation: scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* TOOLS SECTION */
+.tools {
+  padding: 120px 60px;
+  position: relative;
+}
+
+.section-label {
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-label::before {
+  content: '';
+  width: 30px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.section-title {
+  font-family: 'Clash Display', sans-serif;
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.section-title .accent { color: var(--blue); }
+
+.section-desc {
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 500px;
+  line-height: 1.7;
+  margin-bottom: 64px;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.tool-card {
+  background: var(--bg);
+  padding: 40px 32px;
+  position: relative;
+  transition: all 0.4s;
+  overflow: hidden;
+}
+
+.tool-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--grad);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.tool-card:hover::before { opacity: 0.05; }
+.tool-card:hover { transform: translateY(-4px); z-index: 1; }
+
+.tool-card:hover .tool-icon {
+  transform: scale(1.2) rotate(5deg);
+}
+
+.tool-icon {
+  font-size: 36px;
+  margin-bottom: 16px;
+  display: block;
+  transition: transform 0.3s;
+}
+
+.tool-name {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--white);
+}
+
+.tool-desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.tool-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--grad);
+  transform: scaleX(0);
+  transition: transform 0.4s;
+}
+.tool-card:hover::after { transform: scaleX(1); }
+
+/* STATS */
+.stats {
+  padding: 80px 60px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.stat-item { text-align: center; }
+
+.stat-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 64px;
+  line-height: 1;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* PRICING */
+.pricing {
+  padding: 120px 60px;
+  position: relative;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.price-card {
+  background: var(--bg2);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 40px 32px;
+  position: relative;
+  transition: all 0.4s;
+  overflow: hidden;
+}
+
+.price-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(58,134,255,0.3);
+  box-shadow: 0 24px 60px rgba(58,134,255,0.1);
+}
+
+.price-card.featured {
+  border-color: var(--gold);
+  background: linear-gradient(135deg, rgba(245,200,66,0.08), var(--bg2));
+}
+
+.price-card.featured::before {
+  content: 'MOST POPULAR';
+  position: absolute;
+  top: 16px; right: 16px;
+  background: var(--gold);
+  color: #000;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 4px 10px;
+  border-radius: 2px;
+}
+
+.price-plan {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.price-amount {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 64px;
+  line-height: 1;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.price-amount span {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+.price-desc {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+
+.price-features {
+  list-style: none;
+  margin-bottom: 32px;
+}
+
+.price-features li {
+  font-size: 14px;
+  color: rgba(240,238,255,0.7);
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.price-features li::before {
+  content: '→';
+  color: var(--blue);
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.price-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: none;
+  transition: all 0.3s;
+  letter-spacing: 0.5px;
+}
+
+.price-btn-outline {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--white);
+}
+.price-btn-outline:hover { border-color: var(--blue); color: var(--blue); }
+
+.price-btn-gold {
+  background: var(--gold);
+  border: none;
+  color: #000;
+  font-weight: 600;
+}
+.price-btn-gold:hover { box-shadow: 0 8px 24px rgba(245,200,66,0.4); transform: translateY(-2px); }
+
+/* LANGUAGES */
+.languages {
+  padding: 100px 60px;
+  text-align: center;
+  background: var(--bg2);
+}
+
+.lang-grid {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 48px;
+}
+
+.lang-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 8px;
+  padding: 16px 24px;
+  transition: all 0.3s;
+}
+
+.lang-item:hover {
+  border-color: var(--blue);
+  background: rgba(58,134,255,0.05);
+  transform: translateY(-4px);
+}
+
+.lang-flag { font-size: 24px; }
+.lang-name { font-size: 14px; font-weight: 500; }
+
+/* CTA SECTION */
+.cta-section {
+  padding: 120px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px; height: 400px;
+  background: radial-gradient(ellipse, rgba(123,47,255,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 8vw, 96px);
+  line-height: 0.95;
+  margin-bottom: 24px;
+}
+
+.cta-title .outline {
+  -webkit-text-stroke: 2px rgba(255,255,255,0.2);
+  -webkit-text-fill-color: transparent;
+}
+
+.cta-sub {
+  font-size: 16px;
+  color: var(--muted);
+  margin-bottom: 48px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* FOOTER */
+footer {
+  padding: 40px 60px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 3px;
+  background: var(--grad2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.footer-text {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+
+.footer-by {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.footer-by span {
+  color: var(--gold);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  .hero { padding: 100px 24px 80px; }
+  .tools { padding: 80px 24px; }
+  .stats { padding: 60px 24px; }
+  .pricing { padding: 80px 24px; }
+  .languages { padding: 80px 24px; }
+  .cta-section { padding: 80px 24px; }
+  footer { padding: 32px 24px; flex-direction: column; text-align: center; }
+}
+</style>
+<script>
+var __LOGO__ = "data:image/png;base64,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";
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelectorAll('img[src="__LOGO__"]').forEach(function(img) {
+    img.src = __LOGO__;
+  });
+});
+</script>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-trail" id="trail"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" style="display:flex;align-items:center;gap:10px;">
+      <img src="__LOGO__" style="width:36px;height:36px;border-radius:6px;" alt="SolveIt Logo"/>
+      SOLVEIT
+    </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#languages">Languages</a></li>
+  </ul>
+  <a href="https://sloveit.lemonsqueezy.com/checkout/buy/b52acc07-b750-4811-8df2-35d4b218c330" target="_blank" class="nav-cta" style="text-decoration:none;">Try Free</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="orb orb-4"></div>
+
+  <div class="hero-content">
+    <div style="display:flex;justify-content:center;margin-bottom:32px;">
+      <img src="__LOGO__" style="width:150px;height:150px;border-radius:20px;margin-bottom:24px;box-shadow:0 0 60px rgba(245,200,66,0.4),0 0 120px rgba(58,134,255,0.2);" alt="SolveIt"/>
+    </div>
+    <div class="hero-badge">🌍 AI for Everyone, Everywhere</div>
+  <div style="display:flex;align-items:center;gap:8px;justify-content:center;margin-bottom:16px;animation:fadeUp 0.8s 0.05s ease both;opacity:0;animation-fill-mode:forwards;">
+    <div style="display:flex;">
+      <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#3a86ff,#7b2fff);border:2px solid #080810;margin-right:-8px;display:flex;align-items:center;justify-content:center;font-size:12px;">🇧🇷</div>
+      <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#f5c842,#e63946);border:2px solid #080810;margin-right:-8px;display:flex;align-items:center;justify-content:center;font-size:12px;">🇰🇪</div>
+      <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#4caf50,#3a86ff);border:2px solid #080810;margin-right:-8px;display:flex;align-items:center;justify-content:center;font-size:12px;">🇫🇷</div>
+      <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#e63946,#7b2fff);border:2px solid #080810;display:flex;align-items:center;justify-content:center;font-size:12px;">🇲🇿</div>
+    </div>
+    <span style="font-size:13px;color:rgba(240,238,255,0.6);">Join <span style="color:#f5c842;font-weight:600;" id="userCount">2,847</span> users worldwide</span>
+  </div>
+
+    <h1 class="hero-title">
+      <span class="grad">SOLVE</span><br>
+      <span class="outline">ANYTHING</span><br>
+      <span>WITH AI</span>
+    </h1>
+
+    <p class="hero-sub">Your Multifunctional AI Assistant</p>
+
+    
+
+    <p class="hero-desc">
+      SolveIt brings <span>8 powerful AI tools</span> into one simple interface.
+      No technical knowledge needed. Works in <span>6 languages</span>.
+      Built for everyone, everywhere.
+    </p>
+
+    <div class="hero-btns">
+      <a href="https://sloveit.lemonsqueezy.com/checkout/buy/b52acc07-b750-4811-8df2-35d4b218c330" target="_blank" class="btn-primary" style="text-decoration:none;">Start for Free →</a>
+      <button class="btn-secondary">Watch Demo</button>
+    </div>
+
+    <div class="lang-strip">
+      <span class="lang-badge">🇬🇧 English</span>
+      <span class="lang-badge">🇵🇹 Português</span>
+      <span class="lang-badge">🇫🇷 Français</span>
+      <span class="lang-badge">🇪🇸 Español</span>
+      <span class="lang-badge">🇸🇦 العربية</span>
+      <span class="lang-badge">🇰🇪 Swahili</span>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item">
+    <div class="stat-number"> 8 </div>
+    <div class="stat-label">AI Tools</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number"> 6 </div>
+    <div class="stat-label">Languages</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number"> 0 </div>
+    <div class="stat-label">Tech Skills Needed</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number"> ∞ </div>
+    <div class="stat-label">Possibilities</div>
+  </div>
+</div>
+
+<!-- TOOLS -->
+<section class="tools" id="tools">
+  <div class="section-label">What SolveIt Can Do</div>
+  <h2 class="section-title">8 Tools.<br><span class="accent">One Platform.</span></h2>
+  <p class="section-desc">Everything you need to work smarter — without learning how to use AI.</p>
+
+  <div class="tools-grid">
+    <div class="tool-card">
+      <span class="tool-icon">⚡</span>
+      <div class="tool-name">Solve Problems</div>
+      <div class="tool-desc">Describe any challenge and get practical, creative solutions instantly.</div>
+    </div>
+    <div class="tool-card">
+      <span class="tool-icon">📄</span>
+      <div class="tool-name">Summarize Text</div>
+      <div class="tool-desc">Turn long documents, articles, or reports into clear, concise summaries.</div>
+    </div>
+    <div class="tool-card">
+      <span class="tool-icon">✏️</span>
+      <div class="tool-name">Fix Your Writing</div>
+      <div class="tool-desc">Correct grammar, improve style, and make any text more professional.</div>
+    </div>
+    <div class="tool-card">
+      <span class="tool-icon">🌐</span>
+      <div class="tool-name">Translate</div>
+      <div class="tool-desc">Auto-detect any language and translate to your target language instantly.</div>
+    </div>
+    <div class="tool-card">
+      <span class="tool-icon">💡</span>
+      <div class="tool-name">Generate Ideas</div>
+      <div class="tool-desc">Get 7 creative, unique ideas on any topic in seconds.</div>
+    </div>
+    <div class="tool-card">
+      <span class="tool-icon">🗺️</span>
+      <div class="tool-name">Create Plans</div>
+      <div class="tool-desc">Turn any goal into a clear, step-by-step action plan.</div>
+    </div>
+    <div class="tool-card">
+      <span class="tool-icon">📧</span>
+      <div class="tool-name">Manage Emails</div>
+      <div class="tool-desc">Draft, reply to, and improve professional emails effortlessly.</div>
+    </div>
+    <div class="tool-card">
+      <span class="tool-icon">📁</span>
+      <div class="tool-name">Organize Files</div>
+      <div class="tool-desc">Get smart suggestions for folder structures and file naming systems.</div>
+    </div>
+  </div>
+</section>
+
+<!-- LANGUAGES -->
+<section class="languages" id="languages">
+  <div class="section-label" style="justify-content:center">Global Reach</div>
+  <h2 class="section-title">AI in Your <span class="accent">Language</span></h2>
+  <p class="section-desc" style="margin:16px auto 0;max-width:500px">Most AI tools are English-only. SolveIt speaks your language — natively.</p>
+
+  <div class="lang-grid">
+    <div class="lang-item"><span class="lang-flag">🇬🇧</span><span class="lang-name">English</span></div>
+    <div class="lang-item"><span class="lang-flag">🇵🇹</span><span class="lang-name">Português</span></div>
+    <div class="lang-item"><span class="lang-flag">🇫🇷</span><span class="lang-name">Français</span></div>
+    <div class="lang-item"><span class="lang-flag">🇪🇸</span><span class="lang-name">Español</span></div>
+    <div class="lang-item"><span class="lang-flag">🇸🇦</span><span class="lang-name">العربية</span></div>
+    <div class="lang-item"><span class="lang-flag">🇰🇪</span><span class="lang-name">Swahili</span></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-label">Simple Pricing</div>
+  <h2 class="section-title">Start Free.<br><span class="accent">Scale When Ready.</span></h2>
+  <p class="section-desc">No credit card required. Cancel anytime.</p>
+
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-plan">Free</div>
+      <div class="price-amount">$0<span>/month</span></div>
+      <div class="price-desc">Perfect for trying SolveIt</div>
+      <ul class="price-features">
+        <li>5 uses per day</li>
+        <li>2 AI tools</li>
+        <li>English only</li>
+        <li>Basic support</li>
+      </ul>
+      <a href="https://sloveit.lemonsqueezy.com/checkout/buy/b52acc07-b750-4811-8df2-35d4b218c330" target="_blank" class="price-btn price-btn-outline" style="display:block;text-align:center;text-decoration:none;">Get Started Free</a>
+    </div>
+
+    <div class="price-card featured">
+      <div class="price-plan">Starter</div>
+      <div class="price-amount">$9.99<span>/month</span></div>
+      <div class="price-desc">For individuals and freelancers</div>
+      <ul class="price-features">
+        <li>Unlimited uses</li>
+        <li>All 8 AI tools</li>
+        <li>3 languages</li>
+        <li>Priority support</li>
+      </ul>
+      <a href="https://sloveit.lemonsqueezy.com/checkout/buy/5434cbed-dd0c-44f2-9169-fc103332cab8?discount=0" target="_blank" class="price-btn price-btn-gold" style="display:block;text-align:center;text-decoration:none;">Start Now →</a>
+    </div>
+
+    <div class="price-card">
+      <div class="price-plan">Pro</div>
+      <div class="price-amount">$24.99<span>/month</span></div>
+      <div class="price-desc">For power users and creators</div>
+      <ul class="price-features">
+        <li>Everything in Starter</li>
+        <li>All 6 languages</li>
+        <li>API access</li>
+        <li>Dedicated support</li>
+      </ul>
+      <a href="https://sloveit.lemonsqueezy.com/checkout/buy/cda54ecb-b9f5-4166-8295-a48650d9db0d" target="_blank" class="price-btn price-btn-outline" style="display:block;text-align:center;text-decoration:none;">Go Pro</a>
+    </div>
+
+    <div class="price-card">
+      <div class="price-plan">Business</div>
+      <div class="price-amount">$99<span>/month</span></div>
+      <div class="price-desc">For teams and companies</div>
+      <ul class="price-features">
+        <li>Up to 10 users</li>
+        <li>White label option</li>
+        <li>Custom tools</li>
+        <li>Dedicated support</li>
+      </ul>
+      <a href="https://sloveit.lemonsqueezy.com/checkout/buy/5c57d250-2d5b-4d40-87c9-67c3f29a7bd8" target="_blank" class="price-btn price-btn-outline" style="display:block;text-align:center;text-decoration:none;">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BADGES -->
+<section style="padding:60px;text-align:center;border-top:1px solid rgba(255,255,255,0.04);border-bottom:1px solid rgba(255,255,255,0.04);">
+  <p style="font-size:11px;letter-spacing:3px;color:#6b6b8a;text-transform:uppercase;margin-bottom:32px;">Trusted & Secure</p>
+  <div style="display:flex;gap:40px;justify-content:center;flex-wrap:wrap;align-items:center;">
+    <div style="display:flex;align-items:center;gap:10px;color:rgba(240,238,255,0.5);font-size:13px;">
+      <span style="font-size:20px;">🔒</span> SSL Encrypted
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;color:rgba(240,238,255,0.5);font-size:13px;">
+      <span style="font-size:20px;">💳</span> Secure Payments
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;color:rgba(240,238,255,0.5);font-size:13px;">
+      <span style="font-size:20px;">🔄</span> Cancel Anytime
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;color:rgba(240,238,255,0.5);font-size:13px;">
+      <span style="font-size:20px;">🛡️</span> 30-Day Money Back
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;color:rgba(240,238,255,0.5);font-size:13px;">
+      <span style="font-size:20px;">🌍</span> 300+ Markets
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;color:rgba(240,238,255,0.5);font-size:13px;">
+      <span style="font-size:20px;">🤖</span> Powered by Claude AI
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2 class="cta-title">
+    READY TO<br>
+    <span class="outline">SOLVE</span><br>
+    EVERYTHING?
+  </h2>
+  <p class="cta-sub">Join thousands of users solving everyday problems with AI — in their own language.</p>
+  <div class="hero-btns">
+    <a href="https://sloveit.lemonsqueezy.com/checkout/buy/b52acc07-b750-4811-8df2-35d4b218c330" target="_blank" class="btn-primary" style="text-decoration:none;">Start for Free — No Credit Card</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo" style="display:flex;align-items:center;gap:10px;">
+  <img src="__LOGO__" style="width:28px;height:28px;border-radius:4px;" alt="SolveIt"/>
+  SOLVEIT
+</div>
+  <div class="footer-text">AI · Innovation · Africa · World</div>
+  <div style="display:flex;gap:24px;flex-wrap:wrap;justify-content:center;">
+    <a href="https://sloveit.app/terms.html" style="font-size:12px;color:#6b6b8a;text-decoration:none;" onmouseover="this.style.color='#f5c842'" onmouseout="this.style.color='#6b6b8a'">Terms of Service</a>
+    <a href="https://sloveit.app/privacy.html" style="font-size:12px;color:#6b6b8a;text-decoration:none;" onmouseover="this.style.color='#f5c842'" onmouseout="this.style.color='#6b6b8a'">Privacy Policy</a>
+    <a href="https://sloveit.app/refund.html" style="font-size:12px;color:#6b6b8a;text-decoration:none;" onmouseover="this.style.color='#f5c842'" onmouseout="this.style.color='#6b6b8a'">Refund Policy</a>
+    <a href="mailto:afrodigitalhub0@gmail.com" style="font-size:12px;color:#6b6b8a;text-decoration:none;" onmouseover="this.style.color='#f5c842'" onmouseout="this.style.color='#6b6b8a'">Contact</a>
+  </div>
+  <div class="footer-by">Built by <span>AfroDigitalHub</span> © 2026</div>
+</footer>
+
+<script>
+// Email capture
+function captureEmail() {
+  const email = document.getElementById('heroEmail').value;
+  if (!email || !email.includes('@')) {
+    document.getElementById('heroEmail').style.borderColor = 'rgba(230,57,70,0.8)';
+    document.getElementById('heroEmail').placeholder = 'Please enter a valid email!';
+    return;
+  }
+  document.getElementById('heroEmail').style.borderColor = 'rgba(76,175,80,0.8)';
+  document.getElementById('heroEmail').value = '';
+  document.getElementById("heroEmail").placeholder = "You are on the list! We will be in touch soon.";
+  // Animate counter up
+  const counter = document.getElementById('userCount');
+  if (counter) {
+    const current = parseInt(counter.textContent.replace(',', ''));
+    counter.textContent = (current + 1).toLocaleString();
+  }
+}
+
+// Animate user counter
+function animateCounter2(el, start, end, duration) {
+  let startTime = null;
+  function step(timestamp) {
+    if (!startTime) startTime = timestamp;
+    const progress = Math.min((timestamp - startTime) / duration, 1);
+    const val = Math.floor(progress * (end - start) + start);
+    el.textContent = val.toLocaleString();
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+const counterEl = document.getElementById('userCount');
+if (counterEl) {
+  const obs = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      animateCounter2(counterEl, 1000, 2847, 2000);
+      obs.disconnect();
+    }
+  });
+  obs.observe(counterEl);
+}
+
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const trail = document.getElementById('trail');
+let mx = 0, my = 0, tx = 0, ty = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx - 6 + 'px';
+  cursor.style.top = my - 6 + 'px';
+});
+
+function animTrail() {
+  tx += (mx - tx) * 0.12;
+  ty += (my - ty) * 0.12;
+  trail.style.left = tx - 16 + 'px';
+  trail.style.top = ty - 16 + 'px';
+  requestAnimationFrame(animTrail);
+}
+animTrail();
+
+// Hover effects on buttons
+document.querySelectorAll('button, a').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.style.transform = 'scale(2.5)');
+  el.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
+});
+
+// Scroll animations
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.tool-card, .price-card, .lang-item, .stat-item').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'all 0.6s ease';
+  observer.observe(el);
+});
+
+// Animated counter
+function animateCounter(el, target) {
+  let count = 0;
+  const step = target / 40;
+  const timer = setInterval(() => {
+    count += step;
+    if (count >= target) { el.textContent = target === Infinity ? '∞' : target; clearInterval(timer); return; }
+    el.textContent = Math.floor(count);
+  }, 30);
+}
+
+const statObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const nums = document.querySelectorAll('.stat-number');
+      animateCounter(nums[0], 8);
+      animateCounter(nums[1], 6);
+      animateCounter(nums[2], 0);
+      statObserver.disconnect();
+    }
+  });
+}, { threshold: 0.5 });
+
+const statsSection = document.querySelector('.stats');
+if (statsSection) statObserver.observe(statsSection);
+</script>
+</body>
+</html>
+<style>
+/* SUPPORT SECTION */
+.support-section {
+  padding: 120px 60px;
+  background: var(--bg2);
+  position: relative;
+  overflow: hidden;
+}
+
+.support-section::before {
+  content: '';
+  position: absolute;
+  top: 50%; right: -200px;
+  transform: translateY(-50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(ellipse, rgba(58,134,255,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.support-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.support-features {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.support-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.support-feature:hover {
+  border-color: rgba(58,134,255,0.3);
+  background: rgba(58,134,255,0.05);
+  transform: translateX(8px);
+}
+
+.support-feature-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.support-feature-text h4 {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.support-feature-text p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* Chat Preview */
+.chat-preview {
+  background: #0a0a14;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+}
+
+.chat-header {
+  background: linear-gradient(135deg, #1a1a2e, #0e0e1a);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.chat-avatar {
+  width: 36px; height: 36px;
+  background: var(--grad);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.chat-info h4 {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.chat-info p {
+  font-size: 11px;
+  color: #4caf50;
+}
+
+.chat-status-dot {
+  width: 8px; height: 8px;
+  background: #4caf50;
+  border-radius: 50%;
+  margin-left: auto;
+  animation: blink 2s ease-in-out infinite;
+}
+
+.chat-messages {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 280px;
+}
+
+.chat-msg {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.chat-msg.user {
+  flex-direction: row-reverse;
+}
+
+.chat-msg-avatar {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.chat-msg.ai .chat-msg-avatar {
+  background: var(--grad);
+}
+
+.chat-msg.user .chat-msg-avatar {
+  background: rgba(245,200,66,0.2);
+  border: 1px solid rgba(245,200,66,0.3);
+}
+
+.chat-bubble {
+  max-width: 75%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.chat-msg.ai .chat-bubble {
+  background: rgba(58,134,255,0.1);
+  border: 1px solid rgba(58,134,255,0.2);
+  color: var(--white);
+  border-top-left-radius: 4px;
+}
+
+.chat-msg.user .chat-bubble {
+  background: rgba(245,200,66,0.1);
+  border: 1px solid rgba(245,200,66,0.2);
+  color: var(--white);
+  border-top-right-radius: 4px;
+}
+
+.typing-indicator {
+  display: flex;
+  gap: 4px;
+  padding: 10px 14px;
+  background: rgba(58,134,255,0.1);
+  border: 1px solid rgba(58,134,255,0.2);
+  border-radius: 12px;
+  border-top-left-radius: 4px;
+  width: fit-content;
+}
+
+.typing-dot {
+  width: 6px; height: 6px;
+  background: var(--blue);
+  border-radius: 50%;
+  animation: typingBounce 1.2s ease-in-out infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50% { transform: translateY(-6px); opacity: 1; }
+}
+
+.chat-input-area {
+  padding: 16px 20px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.chat-input {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  outline: none;
+  cursor: none;
+}
+
+.chat-input::placeholder { color: var(--muted); }
+.chat-input:focus { border-color: rgba(58,134,255,0.4); }
+
+.chat-send {
+  width: 36px; height: 36px;
+  background: var(--blue);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  cursor: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  flex-shrink: 0;
+}
+.chat-send:hover { background: var(--purple); transform: scale(1.1); }
+
+@media (max-width: 768px) {
+  .support-inner { grid-template-columns: 1fr; gap: 40px; }
+  .support-section { padding: 80px 24px; }
+}
+</style>
+
+<section class="support-section" id="support">
+  <div class="support-inner">
+    <div>
+      <div class="section-label">24/7 Support</div>
+      <h2 class="section-title">AI Support<br><span class="accent">Always On.</span></h2>
+      <p class="section-desc">Never wait for help again. Our AI support assistant is available 24 hours a day, 7 days a week — in your language.</p>
+
+      <div class="support-features">
+        <div class="support-feature">
+          <span class="support-feature-icon">⚡</span>
+          <div class="support-feature-text">
+            <h4>Instant Responses</h4>
+            <p>Get answers in seconds, not hours. No waiting queues, no business hours.</p>
+          </div>
+        </div>
+        <div class="support-feature">
+          <span class="support-feature-icon">🌍</span>
+          <div class="support-feature-text">
+            <h4>Multilingual Support</h4>
+            <p>Ask for help in any of our 6 supported languages and get a response in the same language.</p>
+          </div>
+        </div>
+        <div class="support-feature">
+          <span class="support-feature-icon">🤖</span>
+          <div class="support-feature-text">
+            <h4>Powered by Claude AI</h4>
+            <p>Our support is powered by Anthropic's Claude — one of the most advanced AI systems in the world.</p>
+          </div>
+        </div>
+        <div class="support-feature">
+          <span class="support-feature-icon">🔒</span>
+          <div class="support-feature-text">
+            <h4>Private & Secure</h4>
+            <p>Your conversations are private. We never share or store your data without consent.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-preview">
+      <div class="chat-header">
+        <div class="chat-avatar">🤖</div>
+        <div class="chat-info">
+          <h4>SolveIt Assistant</h4>
+          <p>● Online — Ready to help</p>
+        </div>
+        <div class="chat-status-dot"></div>
+      </div>
+
+      <div class="chat-messages" id="chatMessages">
+        <div class="chat-msg ai">
+          <div class="chat-msg-avatar">🤖</div>
+          <div class="chat-bubble">Hello! 👋 I'm the SolveIt AI Assistant. How can I help you today?</div>
+        </div>
+        <div class="chat-msg user">
+          <div class="chat-msg-avatar">👤</div>
+          <div class="chat-bubble">How do I translate a document?</div>
+        </div>
+        <div class="chat-msg ai">
+          <div class="chat-msg-avatar">🤖</div>
+          <div class="chat-bubble">It's simple! 🌐 Go to the <strong>Translate</strong> tool, paste your text, choose your target language, and click "Translate". SolveIt auto-detects the original language for you!</div>
+        </div>
+      </div>
+
+      <div class="chat-input-area">
+        <input type="text" class="chat-input" id="chatInput" placeholder="Ask anything..." />
+        <button class="chat-send" id="chatSend">→</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// Live Chat with Claude AI
+const chatInput = document.getElementById('chatInput');
+const chatSend = document.getElementById('chatSend');
+const chatMessages = document.getElementById('chatMessages');
+
+async function sendMessage() {
+  const msg = chatInput.value.trim();
+  if (!msg) return;
+
+  // Add user message
+  chatMessages.innerHTML += `
+    <div class="chat-msg user">
+      <div class="chat-msg-avatar">👤</div>
+      <div class="chat-bubble">${msg}</div>
+    </div>`;
+  chatInput.value = '';
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+
+  // Show typing indicator
+  const typingId = 'typing-' + Date.now();
+  chatMessages.innerHTML += `
+    <div class="chat-msg ai" id="${typingId}">
+      <div class="chat-msg-avatar">🤖</div>
+      <div class="typing-indicator">
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+      </div>
+    </div>`;
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+
+  try {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        system: "You are the SolveIt AI Support Assistant. SolveIt is a multifunctional AI web app with 8 tools: Solve Problems, Summarize Text, Fix Writing, Translate, Generate Ideas, Create Plans, Manage Email, Organize Files. It supports 6 languages: English, Portuguese, French, Spanish, Arabic, Swahili. Plans: Free ($0), Starter ($9.99/mo), Pro ($24.99/mo), Business ($99/mo). Be helpful, friendly, concise and professional. Answer in the same language the user writes in.",
+        messages: [{ role: "user", content: msg }]
+      })
+    });
+
+    const data = await response.json();
+    const reply = data.content?.[0]?.text || "I'm here to help! Please try again.";
+
+    document.getElementById(typingId).remove();
+
+    chatMessages.innerHTML += `
+      <div class="chat-msg ai">
+        <div class="chat-msg-avatar">🤖</div>
+        <div class="chat-bubble">${reply}</div>
+      </div>`;
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+  } catch (err) {
+    document.getElementById(typingId).remove();
+    chatMessages.innerHTML += `
+      <div class="chat-msg ai">
+        <div class="chat-msg-avatar">🤖</div>
+        <div class="chat-bubble">Sorry, I'm having trouble connecting. Please try again in a moment! 🙏</div>
+      </div>`;
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+}
+
+chatSend.addEventListener('click', sendMessage);
+chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
+</script>
+<style>
+/* TESTIMONIALS */
+.testimonials {
+  padding: 120px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonials::before {
+  content: '"';
+  position: absolute;
+  top: 40px; left: 40px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 300px;
+  color: rgba(58,134,255,0.04);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 64px;
+}
+
+.testimonial-card {
+  background: var(--bg2);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 32px;
+  position: relative;
+  transition: all 0.4s;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(245,200,66,0.2);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+
+.testimonial-quote {
+  font-size: 15px;
+  color: rgba(240,238,255,0.75);
+  line-height: 1.7;
+  margin-bottom: 24px;
+  font-style: italic;
+}
+
+.testimonial-quote::before {
+  content: '"';
+  color: var(--gold);
+  font-size: 24px;
+  font-family: 'Bebas Neue', sans-serif;
+  margin-right: 4px;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.testimonial-avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.testimonial-info h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.testimonial-info p {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.testimonial-stars {
+  margin-left: auto;
+  color: var(--gold);
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.testimonial-card:nth-child(1) .testimonial-avatar { background: linear-gradient(135deg, #3a86ff, #7b2fff); }
+.testimonial-card:nth-child(2) .testimonial-avatar { background: linear-gradient(135deg, #f5c842, #e63946); }
+.testimonial-card:nth-child(3) .testimonial-avatar { background: linear-gradient(135deg, #4caf50, #3a86ff); }
+.testimonial-card:nth-child(4) .testimonial-avatar { background: linear-gradient(135deg, #e63946, #7b2fff); }
+.testimonial-card:nth-child(5) .testimonial-avatar { background: linear-gradient(135deg, #f5c842, #4caf50); }
+.testimonial-card:nth-child(6) .testimonial-avatar { background: linear-gradient(135deg, #7b2fff, #3a86ff); }
+
+/* DEMO */
+.demo-section {
+  padding: 120px 60px;
+  background: var(--bg2);
+  position: relative;
+  overflow: hidden;
+}
+
+.demo-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.demo-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 48px 0 32px;
+}
+
+.demo-tab {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: none;
+  transition: all 0.3s;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: transparent;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+
+.demo-tab.active, .demo-tab:hover {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: white;
+}
+
+.demo-window {
+  background: #080810;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+}
+
+.demo-window-bar {
+  background: #0e0e1a;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.demo-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+.demo-dot:nth-child(1) { background: #e63946; }
+.demo-dot:nth-child(2) { background: #f5c842; }
+.demo-dot:nth-child(3) { background: #4caf50; }
+
+.demo-url {
+  flex: 1;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+
+.demo-content {
+  padding: 40px;
+  min-height: 360px;
+  display: none;
+}
+
+.demo-content.active { display: block; }
+
+.demo-tool-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.demo-tool-icon {
+  font-size: 28px;
+}
+
+.demo-tool-title {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.demo-tool-desc {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.demo-input-area {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 14px;
+  color: rgba(240,238,255,0.6);
+  line-height: 1.6;
+  margin-bottom: 16px;
+  min-height: 100px;
+}
+
+.demo-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 16px 0;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.demo-arrow::before, .demo-arrow::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.06);
+}
+
+.demo-output-area {
+  background: rgba(58,134,255,0.05);
+  border: 1px solid rgba(58,134,255,0.15);
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 14px;
+  color: var(--white);
+  line-height: 1.7;
+  min-height: 100px;
+  position: relative;
+}
+
+.demo-output-area::before {
+  content: 'AI OUTPUT';
+  position: absolute;
+  top: -10px; left: 16px;
+  background: var(--blue);
+  color: white;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+
+/* FAQ */
+.faq-section {
+  padding: 120px 60px;
+  position: relative;
+}
+
+.faq-list {
+  max-width: 780px;
+  margin: 64px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-item {
+  background: var(--bg2);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.faq-item.open {
+  border-color: rgba(58,134,255,0.25);
+}
+
+.faq-question {
+  padding: 22px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: none;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--white);
+  transition: color 0.3s;
+  gap: 16px;
+}
+
+.faq-question:hover { color: var(--blue); }
+
+.faq-icon {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+  transition: all 0.3s;
+  color: var(--muted);
+}
+
+.faq-item.open .faq-icon {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: white;
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s;
+  padding: 0 24px;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.faq-item.open .faq-answer {
+  max-height: 200px;
+  padding: 0 24px 20px;
+}
+
+@media (max-width: 768px) {
+  .testimonials, .demo-section, .faq-section { padding: 80px 24px; }
+  .demo-content { padding: 24px; }
+}
+</style>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="section-label">What People Say</div>
+  <h2 class="section-title">Loved by Users<br><span class="accent">Worldwide.</span></h2>
+  <p class="section-desc">From freelancers in Brazil to businesses in Kenya — SolveIt is making AI accessible everywhere.</p>
+
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="testimonial-quote">SolveIt changed the way I work. I used to spend hours writing emails in English — now I do it in minutes in Portuguese and SolveIt translates perfectly.</div>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">🇧🇷</div>
+        <div class="testimonial-info">
+          <h4>Ana Lima</h4>
+          <p>Freelancer — São Paulo, Brazil</p>
+        </div>
+        <div class="testimonial-stars">★★★★★</div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="testimonial-quote">I tried ChatGPT but it was too complicated. SolveIt is simple — I click, I type, I get results. Perfect for my small business in Nairobi.</div>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">🇰🇪</div>
+        <div class="testimonial-info">
+          <h4>James Ochieng</h4>
+          <p>Business Owner — Nairobi, Kenya</p>
+        </div>
+        <div class="testimonial-stars">★★★★★</div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="testimonial-quote">As a student, SolveIt helps me summarize research papers and create study plans. It saves me 3-4 hours every week. Incredible tool!</div>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">🇫🇷</div>
+        <div class="testimonial-info">
+          <h4>Fatima Diallo</h4>
+          <p>Student — Paris, France</p>
+        </div>
+        <div class="testimonial-stars">★★★★★</div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="testimonial-quote">The AI support is outstanding. I asked a question in Arabic at 2am and got a perfect answer in seconds. This is the future of customer support.</div>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">🇸🇦</div>
+        <div class="testimonial-info">
+          <h4>Khalid Al-Rashid</h4>
+          <p>Entrepreneur — Riyadh, Saudi Arabia</p>
+        </div>
+        <div class="testimonial-stars">★★★★★</div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="testimonial-quote">SolveIt generates ideas for my content in seconds. What used to take me a full day of brainstorming now takes 30 seconds. Game changer!</div>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">🇲🇿</div>
+        <div class="testimonial-info">
+          <h4>Carlos Machava</h4>
+          <p>Content Creator — Maputo, Mozambique</p>
+        </div>
+        <div class="testimonial-stars">★★★★★</div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="testimonial-quote">We use SolveIt for our entire team. The Business plan is worth every penny. Our productivity increased by 40% in the first month alone.</div>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">🇿🇦</div>
+        <div class="testimonial-info">
+          <h4>Sarah Nkosi</h4>
+          <p>Marketing Director — Cape Town, South Africa</p>
+        </div>
+        <div class="testimonial-stars">★★★★★</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section class="demo-section" id="demo">
+  <div class="demo-inner">
+    <div class="section-label">See It In Action</div>
+    <h2 class="section-title">Watch SolveIt<br><span class="accent">Work.</span></h2>
+    <p class="section-desc">Try a live preview of each tool — no sign up needed.</p>
+
+    <div class="demo-tabs">
+      <button class="demo-tab active" onclick="showDemo('summarize', this)">📄 Summarize</button>
+      <button class="demo-tab" onclick="showDemo('translate', this)">🌐 Translate</button>
+      <button class="demo-tab" onclick="showDemo('ideas', this)">💡 Ideas</button>
+      <button class="demo-tab" onclick="showDemo('plan', this)">🗺️ Plan</button>
+      <button class="demo-tab" onclick="showDemo('email', this)">📧 Email</button>
+    </div>
+
+    <div class="demo-window">
+      <div class="demo-window-bar">
+        <div class="demo-dot"></div>
+        <div class="demo-dot"></div>
+        <div class="demo-dot"></div>
+        <div class="demo-url">solveit.app</div>
+      </div>
+
+      <div class="demo-content active" id="demo-summarize">
+        <div class="demo-tool-header">
+          <span class="demo-tool-icon">📄</span>
+          <div>
+            <div class="demo-tool-title">Summarize Text</div>
+            <div class="demo-tool-desc">Turn long content into clear summaries</div>
+          </div>
+        </div>
+        <div class="demo-input-area">Artificial intelligence is transforming industries worldwide. From healthcare to finance, AI systems are being deployed to automate complex tasks, analyze vast datasets, and generate insights that would take humans months to produce. However, the rapid adoption of AI also raises important ethical questions about bias, privacy, and job displacement that society must address collectively...</div>
+        <div class="demo-arrow">AI PROCESSING</div>
+        <div class="demo-output-area">AI is rapidly transforming multiple industries by automating tasks and generating insights. While this brings significant benefits in efficiency, it also creates ethical challenges around bias, privacy, and employment that require collective societal action.</div>
+      </div>
+
+      <div class="demo-content" id="demo-translate">
+        <div class="demo-tool-header">
+          <span class="demo-tool-icon">🌐</span>
+          <div>
+            <div class="demo-tool-title">Translate</div>
+            <div class="demo-tool-desc">Auto-detect and translate any language</div>
+          </div>
+        </div>
+        <div class="demo-input-area">Welcome to SolveIt — your intelligent AI assistant. We help you solve problems, create content, and communicate more effectively — in any language, anywhere in the world.</div>
+        <div class="demo-arrow">TRANSLATING TO PORTUGUESE</div>
+        <div class="demo-output-area">Bem-vindo ao SolveIt — o seu assistente de inteligência artificial. Ajudamo-lo a resolver problemas, criar conteúdo e comunicar de forma mais eficaz — em qualquer língua, em qualquer parte do mundo.</div>
+      </div>
+
+      <div class="demo-content" id="demo-ideas">
+        <div class="demo-tool-header">
+          <span class="demo-tool-icon">💡</span>
+          <div>
+            <div class="demo-tool-title">Generate Ideas</div>
+            <div class="demo-tool-desc">7 creative ideas on any topic</div>
+          </div>
+        </div>
+        <div class="demo-input-area">Topic: Ways to grow a freelance business online in Africa</div>
+        <div class="demo-arrow">GENERATING 7 IDEAS</div>
+        <div class="demo-output-area">
+          1. Offer niche services on Fiverr targeting international clients<br>
+          2. Create AI-powered content packages for African SMEs<br>
+          3. Build a LinkedIn personal brand around African digital innovation<br>
+          4. Launch a micro-SaaS tool solving a local business problem<br>
+          5. Partner with NGOs for digital transformation projects<br>
+          6. Create online courses teaching digital skills in local languages<br>
+          7. Build an affiliate marketing funnel targeting diaspora communities
+        </div>
+      </div>
+
+      <div class="demo-content" id="demo-plan">
+        <div class="demo-tool-header">
+          <span class="demo-tool-icon">🗺️</span>
+          <div>
+            <div class="demo-tool-title">Create Plan</div>
+            <div class="demo-tool-desc">Step-by-step action plans for any goal</div>
+          </div>
+        </div>
+        <div class="demo-input-area">Goal: Launch a SaaS product in 90 days</div>
+        <div class="demo-arrow">BUILDING YOUR PLAN</div>
+        <div class="demo-output-area">
+          Week 1-2: Define problem, target audience and core features<br>
+          Week 3-4: Build MVP with essential functionality only<br>
+          Week 5-6: Create landing page and set up payment system<br>
+          Week 7-8: Launch beta with 10-20 test users, collect feedback<br>
+          Week 9-10: Iterate based on feedback, fix critical issues<br>
+          Week 11-12: Official launch with marketing campaign
+        </div>
+      </div>
+
+      <div class="demo-content" id="demo-email">
+        <div class="demo-tool-header">
+          <span class="demo-tool-icon">📧</span>
+          <div>
+            <div class="demo-tool-title">Manage Email</div>
+            <div class="demo-tool-desc">Draft professional emails in seconds</div>
+          </div>
+        </div>
+        <div class="demo-input-area">Write a follow-up email to a client who hasn't responded in 2 weeks about a proposal I sent.</div>
+        <div class="demo-arrow">DRAFTING YOUR EMAIL</div>
+        <div class="demo-output-area">
+          Subject: Following Up — Project Proposal<br><br>
+          Hi [Name], I hope you're doing well! I wanted to follow up on the proposal I shared two weeks ago. I understand you may have a busy schedule, but I'd love to hear your thoughts when you have a moment. I'm happy to answer any questions or adjust the proposal to better fit your needs. Looking forward to hearing from you!
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div style="max-width:780px;margin:0 auto">
+    <div class="section-label">Got Questions?</div>
+    <h2 class="section-title">Frequently Asked<br><span class="accent">Questions.</span></h2>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          What is SolveIt and how does it work?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">SolveIt is a multifunctional AI assistant that brings 8 powerful tools into one simple interface. You select a tool, type your request, and get professional AI-powered results instantly — no technical knowledge required. It's powered by Claude, one of the world's most advanced AI systems.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Which languages does SolveIt support?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">SolveIt currently supports 6 languages: English, Portuguese, French, Spanish, Arabic, and Swahili. We are continuously adding new languages based on user demand. The Free plan includes English only, while paid plans unlock additional languages.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Is there a free plan available?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">Yes! SolveIt offers a free plan with 5 uses per day and access to 2 tools in English. No credit card required. You can upgrade to a paid plan at any time to unlock unlimited uses, all tools, and multiple languages.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          How is SolveIt different from ChatGPT?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">While ChatGPT requires users to know how to write good prompts, SolveIt is designed for non-technical users. You simply select a tool and type naturally — SolveIt handles the complexity. We also support more languages natively and offer a more affordable pricing model.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Is my data safe and private?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">Absolutely. We take privacy seriously. Your conversations are not stored permanently, never sold to third parties, and are processed securely. We comply with international data protection standards.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Can I cancel my subscription anytime?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">Yes, you can cancel your subscription at any time with no questions asked. You will continue to have access to your paid features until the end of your billing period. No hidden fees or cancellation penalties.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Does SolveIt offer a Business or White Label plan?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">Yes! Our Business plan supports up to 10 users at $99/month. We also offer white label solutions for companies that want to brand SolveIt as their own product. Contact us at afrodigitalhub0@gmail.com for custom pricing.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+function showDemo(id, btn) {
+  document.querySelectorAll('.demo-content').forEach(d => d.classList.remove('active'));
+  document.querySelectorAll('.demo-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('demo-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function toggleFaq(el) {
+  const item = el.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
