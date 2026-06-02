@@ -884,17 +884,5 @@ async function runTool() {
     document.getElementById('outputText').textContent = result;
 
     // Update usage
-    usageCount++;
-    localStorage.setItem('solveit_usage', usageCount.toString());
-    updateUsageBar();
-
-  } catch (err) {
-    document.getElementById('outputText').className = 'output-text';
-    document.getElementById('outputText').textContent = 'Error connecting to AI. Please try again.';
-  }
-
-  runBtn.disabled = false;
-}
-</script>
-</body>
+document.getElementById('outputText').textContent = 'Error: ' + err.message;
 </html>
